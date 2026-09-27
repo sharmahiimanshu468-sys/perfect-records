@@ -1,0 +1,21 @@
+{
+  "overview": "A music studio website for Perfect Records Official with video editing and poster design branches, services, studio stats, and an inquiry form.",
+  "features": [
+    "Official gold and blue emblem logo in the header, footer and hero",
+    "Video editing branch with its own album poster",
+    "Poster design branch",
+    "Services and global services showcase",
+    "Studio stats and YouTube channel link",
+    "Scroll animations that replay on every scroll",
+    "Inquiry form with WhatsApp, email and Instagram contact"
+  ],
+  "category": "music-studio-website",
+  "tags": [
+    "music",
+    "studio",
+    "video-editing",
+    "poster-design",
+    "showcase"
+  ],
+  "last_updated": "2026-09-26T18:51:01.889Z"
+}

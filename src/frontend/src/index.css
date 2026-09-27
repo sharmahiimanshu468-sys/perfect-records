@@ -1,0 +1,421 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+   Fonts — bundled, served from /assets/fonts/
+--------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/assets/fonts/SpaceGrotesk.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("/assets/fonts/GeneralSans.woff2") format("woff2");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --font-display: "Space Grotesk", sans-serif;
+    --font-body: "General Sans", sans-serif;
+    --font-mono: "Geist Mono", monospace;
+    --radius: 0.5rem;
+
+    /* Apple-like light system: pure white page, soft neutral grays,
+       restrained ink accent. */
+    --background: 1 0 0;
+    --foreground: 0.21 0.006 265;
+    --card: 0.985 0.0015 265;
+    --card-foreground: 0.21 0.006 265;
+    --popover: 1 0 0;
+    --popover-foreground: 0.21 0.006 265;
+
+    --primary: 0.24 0.008 265;
+    --primary-foreground: 0.99 0.001 265;
+
+    --secondary: 0.965 0.002 265;
+    --secondary-foreground: 0.28 0.006 265;
+    --muted: 0.965 0.002 265;
+    --muted-foreground: 0.52 0.008 265;
+
+    --accent: 0.955 0.003 265;
+    --accent-foreground: 0.24 0.008 265;
+
+    --destructive: 0.55 0.2 27;
+    --destructive-foreground: 0.99 0.003 27;
+    --success: 0.55 0.14 152;
+    --success-foreground: 0.99 0.003 152;
+    --warning: 0.72 0.15 85;
+    --warning-foreground: 0.2 0.02 85;
+
+    --border: 0.92 0.003 265;
+    --input: 0.9 0.003 265;
+    --ring: 0.24 0.008 265;
+
+    --chart-1: 0.55 0.16 265;
+    --chart-2: 0.6 0.14 152;
+    --chart-3: 0.62 0.15 35;
+    --chart-4: 0.58 0.13 250;
+    --chart-5: 0.7 0.13 100;
+
+    --sidebar: 0.985 0.0015 265;
+    --sidebar-foreground: 0.21 0.006 265;
+    --sidebar-primary: 0.24 0.008 265;
+    --sidebar-primary-foreground: 0.99 0.001 265;
+    --sidebar-accent: 0.955 0.003 265;
+    --sidebar-accent-foreground: 0.24 0.008 265;
+    --sidebar-border: 0.92 0.003 265;
+    --sidebar-ring: 0.24 0.008 265;
+
+    /* Brand accent layer — derived from the studio emblem (gold headstock,
+       blue wings). Accents only: the page stays white and Apple-clean.
+       Gold ramp (metallic, hue 85) + blue ramp (electric, hue 258). */
+    --gold: 0.72 0.135 85;
+    --gold-strong: 0.66 0.145 82;
+    --gold-soft: 0.9 0.06 90;
+    --gold-foreground: 0.22 0.03 85;
+
+    --blue: 0.55 0.17 258;
+    --blue-strong: 0.48 0.18 260;
+    --blue-soft: 0.93 0.035 255;
+    --blue-foreground: 0.99 0.004 258;
+
+    --brand: 0.62 0.14 82;
+    --brand-foreground: 0.99 0.004 82;
+    --brand-ink: 0.28 0.02 82;
+
+    /* Accent gradients + hairline */
+    --gradient-brand: linear-gradient(
+      100deg,
+      oklch(var(--gold-strong)) 0%,
+      oklch(var(--gold)) 42%,
+      oklch(var(--blue)) 100%
+    );
+    --hairline-accent: linear-gradient(
+      90deg,
+      oklch(var(--gold) / 0.85) 0%,
+      oklch(var(--gold) / 0.35) 45%,
+      oklch(var(--blue) / 0.85) 100%
+    );
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: oklch(var(--primary) / 0.28);
+    color: oklch(var(--foreground));
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid oklch(var(--ring));
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  /* Gradient + atmosphere tokens */
+  .bg-gradient-primary {
+    background-image: linear-gradient(
+      120deg,
+      oklch(var(--primary)) 0%,
+      oklch(0.38 0.01 265) 100%
+    );
+  }
+
+  .text-gradient-primary {
+    background-image: linear-gradient(
+      100deg,
+      oklch(0.32 0.008 265) 0%,
+      oklch(0.5 0.01 265) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-gradient-subtle {
+    background-image: linear-gradient(
+      180deg,
+      oklch(var(--card)) 0%,
+      oklch(0.97 0.002 265) 100%
+    );
+  }
+
+  /* Ambient depth — a barely-there neutral wash, no neon. */
+  .glow-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(90px);
+    opacity: 0.5;
+    pointer-events: none;
+    background: radial-gradient(
+      circle at center,
+      oklch(0.9 0.006 265 / 0.9) 0%,
+      transparent 70%
+    );
+  }
+
+  .glow-edge {
+    box-shadow: 0 0 0 1px oklch(var(--border) / 0.9), 0 24px 60px -40px
+      oklch(0.21 0.006 265 / 0.18);
+  }
+
+  .text-glow {
+    text-shadow: none;
+  }
+
+  .hairline {
+    border: 1px solid oklch(var(--border) / 0.8);
+  }
+
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .transition-cinematic {
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.7s
+      cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Scroll-reveal primitives. Driven by IntersectionObserver toggling
+     [data-reveal] -> [data-revealed]; must re-fire on every viewport entry
+     in both scroll directions. */
+  [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0) scale(0.985);
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s
+      cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  [data-reveal="left"] {
+    transform: translate3d(-48px, 0, 0) scale(0.985);
+  }
+
+  [data-reveal="right"] {
+    transform: translate3d(48px, 0, 0) scale(0.985);
+  }
+
+  [data-reveal="scale"] {
+    transform: translate3d(0, 24px, 0) scale(0.94);
+  }
+
+  [data-revealed="true"] {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  .stagger-1 {
+    --reveal-delay: 80ms;
+  }
+  .stagger-2 {
+    --reveal-delay: 160ms;
+  }
+  .stagger-3 {
+    --reveal-delay: 240ms;
+  }
+  .stagger-4 {
+    --reveal-delay: 320ms;
+  }
+  .stagger-5 {
+    --reveal-delay: 400ms;
+  }
+  .stagger-6 {
+    --reveal-delay: 480ms;
+  }
+
+  .parallax-layer {
+    will-change: transform;
+    transform: translate3d(0, var(--parallax-y, 0px), 0);
+  }
+
+  .hover-lift {
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s
+      cubic-bezier(0.16, 1, 0.3, 1), border-color 0.45s ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-6px);
+    border-color: oklch(var(--foreground) / 0.16);
+    box-shadow: 0 28px 60px -34px oklch(0.21 0.006 265 / 0.22);
+  }
+
+  .marquee-track {
+    animation: marquee 32s linear infinite;
+  }
+
+  /* -------------------------------------------------------------------
+     Brand accent layer — gold/blue, accents only.
+  ------------------------------------------------------------------- */
+
+  /* Gold-to-blue section hairline; use as a 1px rule or a top edge. */
+  .hairline-accent {
+    height: 1px;
+    border: 0;
+    background-image: var(--hairline-accent);
+  }
+
+  .text-gradient-brand {
+    background-image: var(--gradient-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Slow one-directional metallic sheen for the emblem / brand mark.
+     The host element supplies the metallic gradient as its background. */
+  .brand-sheen {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .brand-sheen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: linear-gradient(
+      115deg,
+      transparent 32%,
+      oklch(1 0 0 / 0.5) 48%,
+      oklch(var(--gold-soft) / 0.35) 54%,
+      transparent 70%
+    );
+    background-size: 260% 100%;
+    background-repeat: no-repeat;
+    animation: brand-sheen 6.5s linear infinite;
+  }
+
+  /* Scroll-driven cover-open settle for the video-album poster.
+     Replays on every viewport entry (driven by [data-revealed]). */
+  [data-reveal="cover"] {
+    transform: perspective(1200px) rotateY(-12deg) rotateZ(-2deg)
+      translate3d(0, 32px, 0) scale(0.94);
+    transform-origin: 50% 100%;
+  }
+
+  [data-reveal="cover"][data-revealed="true"] {
+    transform: perspective(1200px) rotateY(0deg) rotateZ(0deg)
+      translate3d(0, 0, 0) scale(1);
+  }
+
+  .accent-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid oklch(var(--border) / 0.9);
+    background-color: oklch(var(--blue-soft) / 0.6);
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    color: oklch(var(--blue-strong));
+  }
+
+  .accent-dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 9999px;
+    background-color: oklch(var(--gold));
+  }
+
+  /* Gold top edge for the video-album poster card. */
+  .poster-edge {
+    position: relative;
+  }
+
+  .poster-edge::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 2px;
+    background-image: linear-gradient(
+      90deg,
+      oklch(var(--gold-strong)) 0%,
+      oklch(var(--gold)) 55%,
+      oklch(var(--blue) / 0.7) 100%
+    );
+  }
+
+  /* Dark backing plate so the emblem's native black background reads as an
+     intentional badge on the light page. */
+  .emblem-plate {
+    background-color: oklch(0.16 0.006 265);
+    box-shadow: 0 24px 60px -34px oklch(0.16 0.006 265 / 0.55), 0 0 0 1px
+      oklch(var(--gold) / 0.35);
+  }
+
+  /* Reusable reduced-motion fallback: disable all entrance/parallax motion
+     and show content in its final state. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    [data-reveal],
+    [data-reveal="left"],
+    [data-reveal="right"],
+    [data-reveal="scale"] {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    .parallax-layer {
+      transform: none !important;
+    }
+
+    .marquee-track,
+    .animate-float,
+    .animate-pulse-glow,
+    .animate-waveform,
+    .brand-sheen::after {
+      animation: none !important;
+    }
+
+    [data-reveal="cover"] {
+      transform: none !important;
+    }
+
+    .hover-lift:hover {
+      transform: none;
+    }
+  }
+}

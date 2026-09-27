@@ -1,0 +1,103 @@
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type Result__1 = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type Result_1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ variant {
+   err: InquiryError;
+   ok: Inquiry;
+ };
+type ProjectType = 
+ variant {
+   customComposition;
+   devotionalSpiritual;
+   fullTrackProduction;
+   mixingMastering;
+   other;
+   posterDesign;
+   videoEditing;
+ };
+type InquiryInput = 
+ record {
+   email: text;
+   message: text;
+   name: text;
+   projectType: ProjectType;
+ };
+type InquiryId = nat;
+type InquiryError = 
+ variant {
+   invalidEmail;
+   invalidMessage;
+   invalidName;
+ };
+type Inquiry = 
+ record {
+   createdAt: nat;
+   email: text;
+   id: InquiryId;
+   message: text;
+   name: text;
+   projectType: ProjectType;
+ };
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+service : {
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result_1);
+  _internet_identity_sign_in_start: () -> (blob);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  execute: (qJson: text) -> (Result__1) query;
+  getApiDoc: () -> (text) query;
+  getCallerUserRole: () -> (UserRole) query;
+  isCallerAdmin: () -> (bool) query;
+  listInquiries: () -> (vec Inquiry) query;
+  schema: () -> (text) query;
+  submitInquiry: (input: InquiryInput) -> (Result);
+}

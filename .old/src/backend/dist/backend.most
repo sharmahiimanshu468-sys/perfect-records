@@ -1,0 +1,89 @@
+// Version: 4.0.0
+type AccessControlState__201339279 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__230067015<Principal, UserRole__91647283>
+  };
+type Data__44217153<K, V> = {var count : Nat__227979830; kvs : [var ?(K, V)]};
+type InquiryId__217425580 = Nat;
+type Inquiry__159127206 =
+  {
+    createdAt : Nat;
+    email : Text;
+    id : InquiryId__217425580;
+    message : Text;
+    name : Text;
+    projectType : ProjectType__877732179
+  };
+type Inquiry__279425261 =
+  {
+    createdAt : Nat;
+    email : Text;
+    id : Nat;
+    message : Text;
+    name : Text;
+    projectType : ProjectType__384943185
+  };
+type Internal__283199666<K, V> =
+  {children : [var ?Node__204828119<K, V>]; data : Data__44217153<K, V>};
+type Leaf__598469445<K, V> = {data : Data__44217153<K, V>};
+type List__355132335<T> =
+  {
+    var blockIndex : Nat__227979830;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__227979830
+  };
+type List__836382695<T> = List__355132335<T>;
+type Map__230067015<K, V> = Map__405889023<K, V>;
+type Map__405889023<K, V> = Map__603270868<K, V>;
+type Map__603270868<K, V> =
+  {var root : Node__204828119<K, V>; var size : Nat__227979830};
+type Nat__227979830 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__769816496 =
+  {
+    accessControlState : AccessControlState__201339279;
+    inquiries : List__836382695<Inquiry__279425261>;
+    nextInquiryId : {var value : Nat}
+  };
+type Node__204828119<K, V> =
+  {#internal : Internal__283199666<K, V>; #leaf : Leaf__598469445<K, V>};
+type OldActor__512397517 = {};
+type ProjectType__384943185 =
+  {
+    #customComposition;
+    #devotionalSpiritual;
+    #fullTrackProduction;
+    #mixingMastering;
+    #other;
+    #posterDesign;
+    #videoEditing
+  };
+type ProjectType__877732179 =
+  {
+    #customComposition;
+    #devotionalSpiritual;
+    #fullTrackProduction;
+    #mixingMastering;
+    #other;
+    #posterDesign;
+    #videoEditing
+  };
+type UserRole__91647283 = {#admin; #guest; #user};
+{
+  "00000000_000000" : OldActor__512397517 -> NewActor__769816496
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__230067015<Principal, UserRole__91647283>
+    };
+  stable inquiries :
+    {
+      var blockIndex : Nat__227979830;
+      var blocks : [var [var ?Inquiry__159127206]];
+      var elementIndex : Nat__227979830
+    };
+  stable nextInquiryId : {var value : Nat}
+};
